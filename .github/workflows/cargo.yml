@@ -32,12 +32,12 @@ jobs:
           cargo build \
             --verbose \
             --unit-graph
-        if: contains(matrix.toolchain, 'nightly')
+        if: contains(fromJson('["nightly"]'), matrix.toolchain)
         working-directory: ${{ matrix.example }}
       - run: |
           cargo build \
             --verbose
-        if: contains(matrix.toolchain, ['stable','beta'])
+        if: contains(fromJson('["stable", "beta"]'), matrix.toolchain)
         working-directory: ${{ matrix.example }}
       - run: cargo test --verbose
         working-directory: ${{ matrix.example }}

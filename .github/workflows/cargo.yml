@@ -26,9 +26,18 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           rustup update ${{ matrix.toolchain }} \
-          && rustup default ${{ matrix.toolchain }}
+            && rustup default ${{ matrix.toolchain }}
         working-directory: ${{ matrix.example }}
-      - run: cargo build --verbose
+      - run: |
+          cargo build \
+            --verbose \
+            --unit-graph
+        if: contains(matrix.toolchain, 'nightly')
+        working-directory: ${{ matrix.example }}
+      - run: |
+          cargo build \
+            --verbose
+        if: contains(matrix.toolchain, ['stable','beta'])
         working-directory: ${{ matrix.example }}
       - run: cargo test --verbose
         working-directory: ${{ matrix.example }}

@@ -17,6 +17,8 @@ jobs:
           - stable
           - beta
           - nightly
+        example:
+          - hello_world
     steps:
       - uses: actions/checkout@v3
       - run: |
